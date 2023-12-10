@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  prometheus:
+    container_name: prometheus
+    image: bitnami/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - monitor
+    depends_on:
+      - node-exporter1
+      - node-exporter2
+      - node-exporter3
+      - pythonserver
+
+  node-exporter1:
+    container_name: node-exporter1
+    image: bitnami/node-exporter:latest
+    ports:
+      - 9101:9100
+    networks:
+      - monitor
+
+  node-exporter2:
+    container_name: node-exporter2
+    image: bitnami/node-exporter:latest
+    ports:
+      - 9102:9100
+    networks:
+      - monitor
+
+  node-exporter3:
+    container_name: node-exporter3
+    image: bitnami/node-exporter:latest
+    ports:
+      - 9103:9100
+    networks:
+      - monitor
+
+  pythonserver:
+    container_name: pythonserver
+    image: pythonserver
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8080
+    networks:
+      - monitor
+    depends_on:
+      - node-exporter1
+      - node-exporter2
+      - node-exporter3
+
+networks:
+  monitor:
+    driver: bridge
