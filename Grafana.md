@@ -164,3 +164,4 @@ Now you can create your first dashboard. For this lab, you will use a precreated
 
 ## View the Dashboard
 
+You should now see the **General / Node Exporter Full** dashboard which shows **CPU Busy, Sys Load, RAM used** and other information. This dashboard will allow you to get a broad overview of how the system is performing, as well as drilling down into individual nodes to see how they are performing. Now, try a few things out.
